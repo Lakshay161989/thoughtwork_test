@@ -1,0 +1,26 @@
+version: "3.2"
+
+services:
+#Mysql Container
+  mysql:
+    image: mysql:5.7.23
+    container_name: mysql
+    hostname: mysql
+    volumes:
+      - /var/lib/mysql:/var/lib/mysql
+    env_file:
+      - ./mysql.env
+    restart: always
+
+#Mediawiki Container
+  mediawiki:
+    image: diouxx/mediawiki
+    container_name : wiki
+    hostname: wiki
+    ports:
+      - "80:80"
+    volumes:
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+      - /var/www/html/wiki/:/var/www/html/wiki
+    restart: always
